@@ -129,13 +129,15 @@ if q == 20:
     rangeLimit = 1
 elif q == 10:
     rangeLimit = 2
+elif q == 5:
+    rangeLimit = 4    
 else:
     rangeLimit = 10
 
 for i in range(rangeLimit):
     for r in range(rangeLimit):
-        momentum = 2*np.pi*i/10 * tb1 + 2*np.pi*r/10 * tb2
-        eigvals = np.linalg.eigvalsh(generateHamiltonian(momentum))
+        momentum = 2*np.pi*i/rangeLimit * tb1 + 2*np.pi*r/rangeLimit * tb2
+        eigvals = np.linalg.eigvalsh(generateHamiltonian(momentum + np.array([0.02,0.02])))
         histPoints+=list(eigvals)
         
 np.save('rawData/data_'+str(p)+'_'+str(q)+'.npy',histPoints)
